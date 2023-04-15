@@ -11,7 +11,7 @@ def read_input():
         return(pattern, text)
     elif input_type == 'F':
         file_name = input()
-        with open(file_name, 'r') as f:
+        with open(file_name, 'r', encoding ="ISO-8859-1") as f:
     # read two lines 
     # first line is pattern
             pattern =  f.readline().rstrip()
