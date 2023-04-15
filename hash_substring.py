@@ -10,20 +10,18 @@ def read_input():
         text = input().rstrip()
         return(pattern, text)
     if input_type == 'F':
-        file_name = input()
-        with open(file_name, 'r') as f:
+        file_name = input().rstrip()
+        with open (file_name, 'r') as f:
     # read two lines 
     # first line is pattern
             pattern =  f.readline().rstrip()
     # second line is text in which to look for pattern 
             text = f.readline().rstrip()
     # return both lines in one return
-    # this is the sample return, notice the rstrip function
             return (pattern, text)
 
 def print_occurrences(output):
     # this function should control output, it doesn't need any return
-    output.sort()
     print(' '.join(map(str, output)))
 
 def get_occurrences(pattern, text):
@@ -34,24 +32,30 @@ def get_occurrences(pattern, text):
     pattern_hash = 0
     text_hash = 0
 
-    for i in range(len(pattern)):
-        pattern_hash = (pattern_hash * B + ord(text[i])) % Q
+    p = len(pattern)
+    t = len(text)
+
+    for i in range(p):
+        pattern_hash = (pattern_hash * B + ord(pattern[i])) % Q
     
     
-    for i in range(len(pattern)):
+    for i in range(p):
         text_hash = (text_hash * B + ord(text[i])) % Q
 
-    for i in range(len(text) - len(pattern) + 1):
+    for i in range(t - p + 1):
         if pattern_hash == text_hash:
-            if pattern == text[i:i + len(pattern)]:
+            if pattern == text[i:i + p]:
                 occurrences.append(i)
 
-        if i < len(text) - len(pattern):
-            text_hash = ((text_hash - ord(text[i]) * pow(B, len(pattern) - 1, Q)) * B + ord(text[i + len(pattern)])) % Q
+        if i < t - p:
+            text_hash = ((text_hash - ord(text[i]) * pow(B, p - 1, Q)) * B + ord(text[i + p])) % Q
+    
+    
     # and return an iterable variable
     return occurrences
 
 
 # this part launches the functions
 if __name__ == '__main__':
-    print_occurrences(get_occurrences(*read_input()))
+    occurrences = get_occurrences(*read_input())
+    print_occurrences(occurrences)
