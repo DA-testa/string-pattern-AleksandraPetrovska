@@ -26,7 +26,7 @@ def get_occurrences(pattern, text):
     # this function should find the occurances using Rabin Karp alghoritm
     a = 256
     m = 10**9+7
-
+    
     result1 = 0
     for i in range(len(pattern)):
         result1 = (result1 * a + ord(pattern[i])) % m 
