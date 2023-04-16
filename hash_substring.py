@@ -10,8 +10,7 @@ def read_input():
         text = input().rstrip()
         return(pattern, text)
     if input_type == 'F':
-        file_name = input().rstrip()
-        with open (file_name, 'r') as f:
+        with open ("tests/06", 'r') as f:
     # read two lines 
     # first line is pattern
             pattern =  f.readline().rstrip()
